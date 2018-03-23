@@ -14,8 +14,8 @@ public class DiscountService {
 	@Autowired
 	private DiscountDAO discountDAO;
 	
-	public List<Discount> getDiscounts() {
-		return discountDAO.retrieveDiscounts(); 
+	public List<Discount> getDiscounts(int companyId) {
+		return discountDAO.retrieveDiscounts(companyId); 
 	}
 	
 	public void addDiscount(Discount discount) {

@@ -36,23 +36,23 @@ public class DiscountSuiteTest {
 	
 	@Test
 	public void testAccessDiscounts() {
-		discountService.getDiscounts();
-		Mockito.verify(discountDAO).retrieveDiscounts();
+		discountService.getDiscounts(1);
+		Mockito.verify(discountDAO).retrieveDiscounts(1);
 	}
 	
 	@Test
 	public void testRetrieveDiscounts() {
-		Mockito.when(discountDAO.retrieveDiscounts()).thenReturn(getDiscounts());
-		List<Discount> discounts = discountService.getDiscounts();
+		Mockito.when(discountDAO.retrieveDiscounts(1)).thenReturn(getDiscounts());
+		List<Discount> discounts = discountService.getDiscounts(1);
 		Assert.notEmpty(discounts, "Discounts retrieved from DB");
-		Mockito.verify(discountDAO).retrieveDiscounts();
+		Mockito.verify(discountDAO).retrieveDiscounts(1);
 	}
 	
 	private List<Discount> getDiscounts() {
 		List<Discount> discounts = new ArrayList<>();
-		Discount d1 = new Discount(1, 5.0, Type.FURNITURE);
-		Discount d2 = new Discount(2, 10.0, Type.CLOTHES);
-		Discount d3 = new Discount(3, 15.0, Type.BOOKS);
+		Discount d1 = new Discount(1, 1, 5.0, Type.FURNITURE);
+		Discount d2 = new Discount(2, 1, 10.0, Type.CLOTHES);
+		Discount d3 = new Discount(3, 1, 15.0, Type.BOOKS);
 		
 		discounts.add(d1);
 		discounts.add(d2);

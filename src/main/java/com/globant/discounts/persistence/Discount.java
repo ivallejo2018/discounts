@@ -3,11 +3,13 @@ package com.globant.discounts.persistence;
 public class Discount {
 
 	private int id;
+	private int companyId;
 	private double percentage;
 	private Type type;
 	
-	public Discount(int id, double percentage, Type type) {
+	public Discount(int id, int companyId, double percentage, Type type) {
 		this.id = id;
+		this.companyId = companyId;
 		this.percentage = percentage;
 		this.type = type;
 	}
@@ -29,5 +31,13 @@ public class Discount {
 	}
 	public void setType(Type type) {
 		this.type = type;
+	}
+
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(int companyId) {
+		this.companyId = companyId;
 	}
 }

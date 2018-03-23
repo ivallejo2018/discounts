@@ -10,7 +10,7 @@ import com.globant.discounts.persistence.Discount;
 @Repository
 public class DiscountDAO {
 
-	public List<Discount> retrieveDiscounts() {
+	public List<Discount> retrieveDiscounts(int companyId) {
 		return new ArrayList<>();
 	}
 	
