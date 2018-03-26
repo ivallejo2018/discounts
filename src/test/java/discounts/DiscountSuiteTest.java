@@ -8,14 +8,21 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import com.globant.discounts.dao.DiscountDAO;
+import com.globant.discounts.dao.SecurityDAO;
 import com.globant.discounts.persistence.Discount;
+import com.globant.discounts.persistence.Employee;
 import com.globant.discounts.persistence.Type;
 import com.globant.discounts.service.DiscountService;
+import com.globant.discounts.service.SecurityService;
 
 public class DiscountSuiteTest {
+	
+	@Autowired
+	private SecurityService securityService;
 	
 	@Mock
 	private DiscountDAO discountDAO;
@@ -27,6 +34,7 @@ public class DiscountSuiteTest {
 		MockitoAnnotations.initMocks(this);
 		discountService = new DiscountService();
 		discountService.setDiscountDAO(discountDAO);
+		securityService = new SecurityService();
 	}
 		
 	@Test
@@ -59,5 +67,17 @@ public class DiscountSuiteTest {
 		discounts.add(d3);
 		
 		return discounts;
+	}
+	
+	@Test
+	public void testIsUserValid() {
+		securityService.validateUser(getEmployee());
+	}
+	
+	private Employee getEmployee() {
+		Employee employee = new Employee();
+		employee.setEmail("ivallejo@yahoo.com");
+		
+		return employee;
 	}
 }

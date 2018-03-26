@@ -39,6 +39,10 @@ public class SecurityService {
 	public String addUser(Employee employee) {
 		securityDAO.addUser(employee);
 		return "User successfully added";
+	}
+
+	public void setSecurityDAO(SecurityDAO securityDAO) {
+		this.securityDAO = securityDAO;
 	}	
 
 }
