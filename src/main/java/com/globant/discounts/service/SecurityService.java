@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.globant.discounts.dao.SecurityDAO;
 import com.globant.discounts.persistence.Employee;
+import com.globant.discounts.util.DiscountException;
 
 /**
  * Security service layer that provides all the security issues 
@@ -25,20 +26,19 @@ public class SecurityService {
 	 * the user key, in this case the email, and password.
 	 * 
 	 * @param employee	The employee information that will be validated as a user
+	 * @return 			A boolean value that determines if a user is valid or not
 	 */
-	public void validateUser(Employee employee) {
-		securityDAO.isUserValid(employee.getEmail(), employee.getPassword());
+	public boolean validateUser(Employee employee) {
+		return securityDAO.isUserValid(employee.getEmail(), employee.getPassword());
 	}
 	
 	/**
 	 * Register a new user that will be enabled with the discount benefits
 	 * 
-	 * @param employee	The employee that will be registered in the discount application
-	 * @return			
+	 * @param employee	The employee that will be registered in the discount application		
 	 */
-	public String addUser(Employee employee) {
+	public void addUser(Employee employee) throws DiscountException {
 		securityDAO.addUser(employee);
-		return "User successfully added";
 	}
 
 	public void setSecurityDAO(SecurityDAO securityDAO) {

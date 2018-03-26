@@ -45,10 +45,11 @@ public class CompanyService {
 	 */
 	@HystrixCommand(fallbackMethod = "addEmployeesToCache")
 	public void addEmployees(List<Employee> employees) {
-		URI uri = URI.create("http://localhost:8080/user");
+		URI uri = URI.create("http://localhost:8081/discounts/users");
 		
 		HttpEntity<List<Employee>> request = new HttpEntity<List<Employee>>(employees);
 		ResponseEntity<List> result = this.restTemplate.postForEntity(uri, request, List.class);
+		System.out.println(result.getStatusCodeValue());
 	}
 	
 	/**
@@ -57,7 +58,7 @@ public class CompanyService {
 	 * @param employees The list of employees of a company
 	 * @return			A message that warns of a later processing
 	 */
-	public String addEmployeesToCache(List<Employee> employees) {
-		return "Users added to later processing";
+	public void addEmployeesToCache(List<Employee> employees) {
+		System.out.println("Fallback method!");
 	}
 }

@@ -32,7 +32,7 @@ public class CompanyRestController {
 	 * @param employees	The list of employees of a company that will 
 	 * 					have the benefit of discounts
 	 */
-	@RequestMapping(method=RequestMethod.POST, value="/employees")
+	@RequestMapping(method=RequestMethod.POST, value="/discounts/employees")
 	public void addEmployees(@RequestBody List<Employee> employees) {
 		companyService.addEmployees(employees);
 	}

@@ -1,5 +1,7 @@
 package com.globant.discounts.rest;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.globant.discounts.persistence.Employee;
 import com.globant.discounts.service.SecurityService;
+import com.globant.discounts.util.DiscountException;
 
 /**
  * The service is responsible for the authentication
@@ -31,7 +34,7 @@ public class AuthenticationController {
 	 * 
 	 * @param employee	The employee who will be sign in to the discount service
 	 */
-	@RequestMapping(method=RequestMethod.POST, value="/login")
+	@RequestMapping(method=RequestMethod.POST, value="/discounts/login")
 	public void login(@RequestBody Employee employee) {
 		securityService.validateUser(employee);	
 	}
@@ -42,8 +45,13 @@ public class AuthenticationController {
 	 * 
 	 * @param employee	The employee who will have the discount benefit
 	 */
-	@RequestMapping(method=RequestMethod.POST, value="/user")
-	public String addUser(@RequestBody Employee employee) {
-		return securityService.addUser(employee);
+	@RequestMapping(method=RequestMethod.POST, value="/discounts/users")
+	public void addUsers(@RequestBody List<Employee> employees) {
+		try {
+			for(Employee employee : employees)
+				securityService.addUser(employee);
+		} catch (DiscountException e) {
+			e.printStackTrace();
+		}
 	}
 }

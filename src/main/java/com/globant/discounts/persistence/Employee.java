@@ -1,5 +1,7 @@
 package com.globant.discounts.persistence;
 
+import com.globant.discounts.util.FileUtil;
+
 public class Employee {
 
 	private int id;
@@ -37,6 +39,20 @@ public class Employee {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.name);
+		sb.append(FileUtil.SEPARATOR);
+		sb.append(this.lastName);
+		sb.append(FileUtil.SEPARATOR);
+		sb.append(this.email);
+		sb.append(FileUtil.SEPARATOR);
+		sb.append(this.password);
+		
+		return sb.toString();
 	}
 	
 }
