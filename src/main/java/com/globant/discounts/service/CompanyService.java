@@ -49,7 +49,6 @@ public class CompanyService {
 		
 		HttpEntity<List<Employee>> request = new HttpEntity<List<Employee>>(employees);
 		ResponseEntity<List> result = this.restTemplate.postForEntity(uri, request, List.class);
-		System.out.println(result.getStatusCodeValue());
 	}
 	
 	/**

@@ -8,3 +8,7 @@ Udemy|Prueba|udemy@globant.com|abcde
 Udemy|Prueba|udemy@globant.com|abcde
 Udemy|Prueba|udemy@globant.com|abcde
 Udemy|Prueba|udemy@globant.com|abcde
+Udemy|Prueba|udemy@globant.com|abcde
+Cero|Cero|cero@gmail.com|00000
+Uno|Uno|uno@hotmail.com|11111
+Udemy|Prueba|udemy@globant.com|abcde

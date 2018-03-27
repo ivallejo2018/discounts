@@ -21,7 +21,7 @@ import com.globant.discounts.util.DiscountException;
  *
  */
 @RestController
-public class AuthenticationController {
+public class AuthenticationRestController {
 
 	@Autowired
 	private SecurityService securityService;

@@ -1,11 +1,17 @@
 package com.globant.discounts.persistence;
 
+import com.globant.discounts.util.FileUtil;
+
 public class Discount {
 
 	private int id;
 	private int companyId;
 	private double percentage;
 	private Type type;
+	
+	public Discount() {
+		super();
+	}
 	
 	public Discount(int id, int companyId, double percentage, Type type) {
 		this.id = id;
@@ -39,5 +45,17 @@ public class Discount {
 
 	public void setCompanyId(int companyId) {
 		this.companyId = companyId;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.companyId);
+		sb.append(FileUtil.SEPARATOR);
+		sb.append(this.percentage);
+		sb.append(FileUtil.SEPARATOR);
+		sb.append(this.type);
+		
+		return sb.toString();
 	}
 }

@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +22,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class FileUtil {
 
-	@Value("file:authentication.txt")
-	private Resource resourceAuthentication;
+	private Resource resource;
+	
+	public FileUtil() {
+		
+	}
+	
+	public FileUtil(Resource resource) {
+		this.resource = resource;
+	}
 	
 	public static final String SEPARATOR = "|";
 	
@@ -36,7 +42,7 @@ public class FileUtil {
 	 */
 	public void write(List<?> elements) throws DiscountException {
 		
-		try (FileWriter file = new FileWriter(resourceAuthentication.getFile(), true)){
+		try (FileWriter file = new FileWriter(resource.getFile(), true)){
 			
 			Iterator<?> iterator = elements.iterator();
 			while(iterator.hasNext()) {
@@ -62,7 +68,7 @@ public class FileUtil {
 	public List<List<Object>> read(Integer column, Object value) throws DiscountException {
 		List<List<Object>> elements = new ArrayList<>();
 		
-		try (BufferedReader file = new BufferedReader(new FileReader(resourceAuthentication.getFile()))) {
+		try (BufferedReader file = new BufferedReader(new FileReader(resource.getFile()))) {
 			String line = file.readLine();
 			while(line != null) {
 				StringTokenizer token = new StringTokenizer(line, SEPARATOR);

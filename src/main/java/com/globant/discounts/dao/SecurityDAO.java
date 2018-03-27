@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Repository;
 
 import com.globant.discounts.persistence.Employee;
@@ -13,8 +15,12 @@ import com.globant.discounts.util.FileUtil;
 @Repository
 public class SecurityDAO {
 
-	@Autowired
 	private FileUtil util;
+	
+	@Autowired
+	public void configureFileUtil() {
+		this.util = new FileUtil(new FileSystemResource("authentication.txt"));
+	}
 	
 	public boolean isUserValid(String user, String password) {
 		

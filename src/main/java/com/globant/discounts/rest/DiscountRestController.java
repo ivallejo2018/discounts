@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.globant.discounts.persistence.Discount;
 import com.globant.discounts.service.DiscountService;
+import com.globant.discounts.util.DiscountException;
 
 /**
  * The service is responsible for the discount services operations like food,
@@ -44,7 +45,11 @@ public class DiscountRestController {
 	 */
 	@RequestMapping(method=RequestMethod.POST, value="/discount")
 	public void addDiscount(@RequestBody Discount discount) {
-		discountService.addDiscount(discount);
+		try {
+			discountService.addDiscount(discount);
+		} catch (DiscountException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -61,11 +66,16 @@ public class DiscountRestController {
 	 * Update a discount available for a company
 	 * The information that can be updated are the percentage and the discount type 
 	 * 
-	 * @param discount	The discount of a company to update
+	 * @param discounts	The discount to find is in the first index of the list
+	 * 					The discount with the new data is in the second index of the list
 	 */
 	@RequestMapping(method=RequestMethod.PUT, value="/discount")
-	public void editDiscount(@RequestBody Discount discount) {
-		discountService.editDiscount(discount);
+	public void editDiscount(@RequestBody List<Discount> discounts) {
+		try {
+			discountService.editDiscount(discounts.get(0), discounts.get(1));
+		} catch (DiscountException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.globant.discounts.dao.DiscountDAO;
 import com.globant.discounts.persistence.Discount;
+import com.globant.discounts.util.DiscountException;
 
 @Service
 public class DiscountService {
@@ -18,7 +19,7 @@ public class DiscountService {
 		return discountDAO.retrieveDiscounts(companyId); 
 	}
 	
-	public void addDiscount(Discount discount) {
+	public void addDiscount(Discount discount) throws DiscountException {
 		discountDAO.storeDiscount(discount);
 	}
 	
@@ -26,8 +27,8 @@ public class DiscountService {
 		discountDAO.deleteDiscount(discount);
 	}
 	
-	public void editDiscount(Discount discount) {
-		discountDAO.updateDiscount(discount);
+	public void editDiscount(Discount src, Discount dest) throws DiscountException {
+		discountDAO.updateDiscount(src, dest);
 	}
 
 	public void setDiscountDAO(DiscountDAO discountDAO) {
