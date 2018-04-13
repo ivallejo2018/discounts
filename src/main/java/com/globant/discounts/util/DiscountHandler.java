@@ -80,11 +80,12 @@ public class DiscountHandler implements FileHandler {
 	public Discount overwrite(Integer companyId, Integer discountId, Discount discount) throws DiscountException {
 		
 		try (RandomAccessFile file = new RandomAccessFile(resource.getFile(), "rw")) {
-			StringBuilder linesRead = new StringBuilder();
+			
 			String line = file.readLine();
+			int length = line.length() + 1;
 			
 			while(line != null) {
-				linesRead.append(line);
+				
 				StringTokenizer token = new StringTokenizer(line, SEPARATOR);
 				Discount discountRetrieved = 
 						new Discount(Integer.valueOf(token.nextToken()), 
@@ -93,15 +94,13 @@ public class DiscountHandler implements FileHandler {
 								Type.valueOf(token.nextToken()));	
 				if(discountRetrieved.getCompanyId() == companyId &&
 						discountRetrieved.getId() == discountId) {
-					file.seek(linesRead.length() - line.length());
-					file.writeBytes(discountRetrieved.getId() + SEPARATOR +
-							discountRetrieved.getCompanyId() + SEPARATOR +
-							discountRetrieved.getPercentage() + SEPARATOR +
-							discountRetrieved.getType());	
+					file.seek(length - line.length() - 1);
+					file.writeBytes(discount.toString());	
 					return discountRetrieved;
 				}
 				
 				line = file.readLine();
+				length += line.length() + 1;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

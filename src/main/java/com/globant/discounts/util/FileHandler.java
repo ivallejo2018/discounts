@@ -10,9 +10,11 @@ public interface FileHandler {
 	
 	public static final String NEW_LINE = "\n";
 	
-	public static final String DEL_CHAR = "#";
+	public static final String DEL_CHAR = "D";
 	
-	public static final String SPACE = " ";
+	public static final String CREATE_CHAR = "C";
+	
+	public static final String UPDATE_CHAR = "U";
 	
 	public List<Discount> read(Integer companyId) throws DiscountException;
 	

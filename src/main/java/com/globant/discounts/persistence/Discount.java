@@ -59,7 +59,7 @@ public class Discount {
 		sb.append(FileUtil.SEPARATOR);
 		sb.append(this.type);
 		sb.append(FileUtil.SEPARATOR);
-		sb.append(FileHandler.SPACE);
+		sb.append(FileHandler.CREATE_CHAR);
 		sb.append(FileUtil.SEPARATOR);
 		
 		return sb.toString();
