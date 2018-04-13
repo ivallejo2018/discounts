@@ -14,6 +14,7 @@ import com.globant.discounts.dao.DiscountDAO;
 import com.globant.discounts.persistence.Discount;
 import com.globant.discounts.persistence.Type;
 import com.globant.discounts.service.DiscountService;
+import com.globant.discounts.util.DiscountException;
 
 public class DiscountSuiteTest {
 	
@@ -36,16 +37,24 @@ public class DiscountSuiteTest {
 	
 	@Test
 	public void testAccessDiscounts() {
-		discountService.getDiscounts(1);
-		Mockito.verify(discountDAO).retrieveDiscounts(1);
+		try {
+			discountService.getDiscounts(1);
+			Mockito.verify(discountDAO).retrieveDiscounts(1);
+		} catch (DiscountException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	public void testRetrieveDiscounts() {
-		Mockito.when(discountDAO.retrieveDiscounts(1)).thenReturn(getDiscounts());
-		List<Discount> discounts = discountService.getDiscounts(1);
-		Assert.notEmpty(discounts, "Discounts retrieved from DB");
-		Mockito.verify(discountDAO).retrieveDiscounts(1);
+		try {
+			Mockito.when(discountDAO.retrieveDiscounts(1)).thenReturn(getDiscounts());
+			List<Discount> discounts = discountService.getDiscounts(1);
+			Assert.notEmpty(discounts, "Discounts retrieved from DB");
+			Mockito.verify(discountDAO).retrieveDiscounts(1);
+		} catch (DiscountException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private List<Discount> getDiscounts() {

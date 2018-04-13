@@ -1,5 +1,6 @@
 package com.globant.discounts.persistence;
 
+import com.globant.discounts.util.FileHandler;
 import com.globant.discounts.util.FileUtil;
 
 public class Discount {
@@ -50,11 +51,16 @@ public class Discount {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append(this.id);
+		sb.append(FileUtil.SEPARATOR);
 		sb.append(this.companyId);
 		sb.append(FileUtil.SEPARATOR);
 		sb.append(this.percentage);
 		sb.append(FileUtil.SEPARATOR);
 		sb.append(this.type);
+		sb.append(FileUtil.SEPARATOR);
+		sb.append(FileHandler.SPACE);
+		sb.append(FileUtil.SEPARATOR);
 		
 		return sb.toString();
 	}

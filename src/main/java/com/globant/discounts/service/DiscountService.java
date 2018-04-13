@@ -15,7 +15,7 @@ public class DiscountService {
 	@Autowired
 	private DiscountDAO discountDAO;
 	
-	public List<Discount> getDiscounts(int companyId) {
+	public List<Discount> getDiscounts(int companyId) throws DiscountException {
 		return discountDAO.retrieveDiscounts(companyId); 
 	}
 	
@@ -23,12 +23,12 @@ public class DiscountService {
 		discountDAO.storeDiscount(discount);
 	}
 	
-	public void deleteDiscount(Discount discount) {
-		discountDAO.deleteDiscount(discount);
+	public void deleteDiscount(int companyId, int discountId) throws DiscountException {
+		discountDAO.deleteDiscount(companyId, discountId);
 	}
 	
-	public void editDiscount(Discount src, Discount dest) throws DiscountException {
-		discountDAO.updateDiscount(src, dest);
+	public void editDiscount(int companyId, int discountId, Discount discount) throws DiscountException {
+		discountDAO.updateDiscount(companyId, discountId, discount);
 	}
 
 	public void setDiscountDAO(DiscountDAO discountDAO) {

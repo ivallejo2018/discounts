@@ -2,17 +2,23 @@ package com.globant.discounts.util;
 
 import java.util.List;
 
-import org.springframework.core.io.Resource;
+import com.globant.discounts.persistence.Discount;
 
-public interface FileHandler<T> {
+public interface FileHandler {
 
 	public static final String SEPARATOR = "|";
 	
 	public static final String NEW_LINE = "\n";
 	
-	public List<T> read(T object) throws DiscountException;
+	public static final String DEL_CHAR = "#";
 	
-	public void write(List<T> objects) throws DiscountException;
+	public static final String SPACE = " ";
 	
-	public void overwrite(T src, T dest) throws DiscountException;
+	public List<Discount> read(Integer companyId) throws DiscountException;
+	
+	public void write(List<Discount> discounts) throws DiscountException;
+	
+	public void erase(Integer companyId, Integer discountId) throws DiscountException;
+	
+	public Discount overwrite(Integer companyId, Integer discountId, Discount discount) throws DiscountException;
 }

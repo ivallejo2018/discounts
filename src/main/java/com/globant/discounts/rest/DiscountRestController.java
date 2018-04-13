@@ -3,6 +3,7 @@ package com.globant.discounts.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import com.globant.discounts.util.DiscountException;
  *
  */
 @RestController
+@RequestMapping("/companies")
 public class DiscountRestController {
 
 	@Autowired
@@ -32,9 +34,15 @@ public class DiscountRestController {
 	 * @param companyId	The company identifier
 	 * @return			The discount list that belongs to a company
 	 */
-	@RequestMapping("/discounts/{companyId}")
-	public List<Discount> getDiscounts(@RequestParam int companyId) {
-		return discountService.getDiscounts(companyId);
+	@RequestMapping(method=RequestMethod.GET, value="/{companyId}/discounts")
+	public List<Discount> getDiscounts(@PathVariable int companyId) {
+		try {
+			return discountService.getDiscounts(companyId);
+		} catch (DiscountException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 	
 	/**
@@ -43,8 +51,8 @@ public class DiscountRestController {
 	 * 
 	 * @param discount	The discount to add for a company
 	 */
-	@RequestMapping(method=RequestMethod.POST, value="/discount")
-	public void addDiscount(@RequestBody Discount discount) {
+	@RequestMapping(method=RequestMethod.POST, value="/{companyId}/discounts")
+	public void addDiscount(@PathVariable int companyId, @RequestBody Discount discount) {
 		try {
 			discountService.addDiscount(discount);
 		} catch (DiscountException e) {
@@ -57,9 +65,13 @@ public class DiscountRestController {
 	 * 
 	 * @param discount	The discount of a company to delete
 	 */
-	@RequestMapping(method=RequestMethod.DELETE, value="/discount")
-	public void deleteDiscount(@RequestBody Discount discount) {
-		discountService.deleteDiscount(discount);
+	@RequestMapping(method=RequestMethod.DELETE, value="/{companyId}/discounts/{discountId}")
+	public void deleteDiscount(@PathVariable int companyId, @PathVariable int discountId) {
+		try {
+			discountService.deleteDiscount(companyId, discountId);
+		} catch (DiscountException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -69,10 +81,10 @@ public class DiscountRestController {
 	 * @param discounts	The discount to find is in the first index of the list
 	 * 					The discount with the new data is in the second index of the list
 	 */
-	@RequestMapping(method=RequestMethod.PUT, value="/discount")
-	public void editDiscount(@RequestBody List<Discount> discounts) {
+	@RequestMapping(method=RequestMethod.PUT, value="/{companyId}/discounts/{discountId}")
+	public void editDiscount(@PathVariable int companyId, @PathVariable int discountId, @RequestBody Discount discount) {
 		try {
-			discountService.editDiscount(discounts.get(0), discounts.get(1));
+			discountService.editDiscount(companyId, discountId, discount);
 		} catch (DiscountException e) {
 			e.printStackTrace();
 		}
